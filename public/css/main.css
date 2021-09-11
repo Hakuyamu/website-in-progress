@@ -3,6 +3,11 @@
   to {border-right-color: transparent;}
 }
 
+@keyframes spinner {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
 * {
   outline: none;
   box-sizing: border-box;
@@ -81,6 +86,7 @@ a, a > * {
 
 .button-container a i {
   margin-right: 10px;
+  font-size: 1.2em;
 }
 
 .button-container a:last-of-type {
@@ -88,7 +94,11 @@ a, a > * {
 }
 
 .button-container a:hover {
-  opacity: .7;
+  opacity: .8;
+}
+
+.button-container a:hover i {
+  animation: spinner 1s ease-in-out;
 }
 
 #github {

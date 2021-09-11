@@ -2,18 +2,59 @@
 	import { onMount } from 'svelte';
 
 	let headline = '';
+	let headlines = [
+		'Nothing to see here yet.',
+		'Hey, you clicked me.',
+		'And again.',
+		'Ur wasting ur time.',
+		'Stop annoying me.',
+		'Ouch! That hurts!',
+		'For real. Stop it.',
+		'Just. Stop. Clicking. Me.',
+		'NOW!',
+		'Aight, imma give up.',
+		'"Never gonna give u up..."',
+		'U just got rickrolled!',
+		'Now, please vanish away.',
+		'＞﹏＜',
+		'Lets apply another strat.',
+		'I beg you!! Leave me alone :(',
+		'Do I mean nothing to u?',
+		'U know what?',
+		'Im done with u.'
+	];
+	let index = 0;
+	let typing = false;
 
 	onMount(async () => {
-		let count = 0;
-		let content = 'Nothing to see here yet.';
-
-		typeWriter();
-		function typeWriter(event) {
-			headline += content.charAt(count)
-			count += 1;
-			setTimeout(typeWriter, 120);
-		}
+		typeWriter(headlines[index]);
+		index += 1;
 	});
+
+	function typeWriter(content) {
+		headline = '';
+		let count = 0;
+
+		typing = true;
+		write();
+
+		function write() {
+			if (content.charAt(count) == '') {
+				typing = false;
+			} else {
+				headline += content.charAt(count)
+				count += 1;
+				setTimeout(write, 120);
+			}
+		}
+	}
+
+	function switchHeadline() {
+		if (index < headlines.length && typing === false) {
+			typeWriter(headlines[index]);
+			index += 1;
+		}
+	}
 
 	function toggleLegalNotice() {
 		let lnClasses = document.getElementById('legal-notice').classList;
@@ -50,7 +91,7 @@
 	</div>
 </section>
 
-<span id="leonheuer">// Leon Heuer</span>
+<span id="leonheuer" on:click={switchHeadline}>// Leon Heuer</span>
 <div class="footer">
 	<span on:click={toggleLegalNotice}>Legal Notice</span
 	><span on:click={togglePrivacyPolicy}>Privacy Policy</span>
